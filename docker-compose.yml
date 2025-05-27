@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   api-gateway:
-    build: ./api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -12,7 +14,9 @@ services:
       - order-service
 
   order-service:
-    build: ./order-service
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
     ports:
       - "8081:8081"
     environment:
@@ -24,7 +28,9 @@ services:
       - database-service
 
   logging-service:
-    build: ./logging-service
+    build:
+      context: ./logging-service
+      dockerfile: Dockerfile
     ports:
       - "8082:8082"
     environment:
@@ -36,7 +42,9 @@ services:
       - database-service
 
   email-service:
-    build: ./email-service
+    build:
+      context: ./email-service
+      dockerfile: Dockerfile
     ports:
       - "8083:8083"
     environment:
@@ -46,7 +54,9 @@ services:
       - kafka
 
   database-service:
-    build: ./database-service
+    build:
+      context: ./database-service
+      dockerfile: Dockerfile
     ports:
       - "8084:8084"
     environment:

@@ -1,6 +1,6 @@
 package com.example.email.consumer;
 
-import com.example.dto.OrderEventDTO;
+import com.example.email.dto.OrderEventDTO;
 import com.example.email.service.EmailService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

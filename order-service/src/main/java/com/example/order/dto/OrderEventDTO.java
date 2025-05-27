@@ -1,11 +1,10 @@
-package com.example.dto;
+package com.example.order.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderEventDTO {
-    @NotBlank(message = "Shipment number is required")
     private String shipmentNumber;
 
     @NotBlank(message = "Receiver email is required")

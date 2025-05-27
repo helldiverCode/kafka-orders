@@ -1,9 +1,8 @@
 package com.example.order.controller;
 
-import com.example.dto.OrderEventDTO;
-import com.example.order.config.KafkaConfig;
+import com.example.order.dto.OrderEventDTO;
+import com.example.order.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +14,15 @@ import jakarta.validation.Valid;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final KafkaTemplate<String, OrderEventDTO> kafkaTemplate;
+    private final OrderService orderService;
 
-    public OrderController(KafkaTemplate<String, OrderEventDTO> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @PostMapping
     public ResponseEntity<String> receiveOrder(@Valid @RequestBody OrderEventDTO orderEvent) {
-        // Send to Kafka using shipment number as the key for partitioning
-        kafkaTemplate.send(KafkaConfig.ORDER_TOPIC, orderEvent.getShipmentNumber(), orderEvent);
-        return ResponseEntity.ok("Order received and being processed");
+        String shipmentNumber = orderService.processOrder(orderEvent);
+        return ResponseEntity.ok("Order received and being processed. Shipment number: " + shipmentNumber);
     }
 } 
